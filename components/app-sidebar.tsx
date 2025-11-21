@@ -79,10 +79,10 @@ export function AppSidebar() {
         <SidebarGroup >
                 <div className="flex flex-col gap-4" >
                     { sidebarData.map((item) => (
-                        <div key={item.title} className="flex items-center gap-3 rounded-md hover:bg-gray-100 cursor-pointer" >
+                        <Link key={item.title} href={item.link} className="flex items-center gap-3 rounded-md hover:bg-gray-100 cursor-pointer" >
                             <Image src={item.icon} alt={`${item.title}icon`} width={24} height={24} className="" />
                             <span className="font-[400] hover:font-semibold" >{item.title}</span>
-                        </div>
+                        </Link>
                     )) }
                 </div>
         </SidebarGroup>
