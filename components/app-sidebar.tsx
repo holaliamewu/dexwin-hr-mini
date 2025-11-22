@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -11,6 +13,8 @@ import Image from "next/image"
 import { Popover, PopoverTrigger } from "./ui/popover"
 import { PopoverContent } from "@radix-ui/react-popover"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
+import clsx from "clsx"
 
 export function AppSidebar() {
 
@@ -63,6 +67,8 @@ export function AppSidebar() {
         { title: "API", link: "/api" },
     ]
 
+    const pathname = usePathname();
+
   return (
     <Sidebar className="bg-white px-[30px] py-[20px] " >
       <SidebarHeader >
@@ -77,11 +83,11 @@ export function AppSidebar() {
       <SidebarContent>
         <SidebarGroupLabel className="mt-8 -mb-2" >Main Menu</SidebarGroupLabel>
         <SidebarGroup >
-                <div className="flex flex-col gap-4" >
+                <div className="flex flex-col gap-3" >
                     { sidebarData.map((item) => (
-                        <Link key={item.title} href={item.link} className="flex items-center gap-3 rounded-md hover:bg-gray-100 cursor-pointer" >
-                            <Image src={item.icon} alt={`${item.title}icon`} width={24} height={24} className="" />
-                            <span className="font-[400] hover:font-semibold" >{item.title}</span>
+                        <Link key={item.title} href={item.link} className={clsx("flex items-center gap-3 rounded-md p-2 cursor-pointer", pathname === item.link && "bg-green-200 font-[600]")} >
+                            <Image src={item.icon} alt={`${item.title} icon`} width={24} height={24} className="" />
+                            <span className=" " >{item.title}</span>
                         </Link>
                     )) }
                 </div>

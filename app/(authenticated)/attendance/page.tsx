@@ -1,81 +1,61 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { columns, Department } from "./columns";
+import { columns, Attendance } from "./columns";
 import { DataTable } from "./data-table";
 
 
-export default function Departments() {
+export default function AttendancePage() {
 
-  const departmentData: Department[] = [
+  const attendanceData: Attendance[] = [
     {
       id: 1,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 2,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Inactive",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 3,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 4,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 5,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 6,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 7,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 8,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 9,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
     {
       id: 10,
-      name: "Operational",
-      dateCreated: "26/10/25 | 12:41 AM",
-      description: "Brand Awareness Growth",
-      status: "Active",
+      timeStamp: "26/10/25 12:41",
+      clockInOut: "10:02 AM -- 5:00 PM",
     },
   ]
     
@@ -84,15 +64,14 @@ export default function Departments() {
       <div className="flex items-center justify-between gap-3" >
         <span className="flex items-center gap-3" >
           <span className="flex items-center justify-center w-10 h-10 aspect-square border border-stone-300 rounded-full " >
-            <Image src="/icons/layers.svg" alt="icon" width={24} height={24} className="w-[24px] " />
+            <Image src="/icons/user-plus.svg" alt="icon" width={24} height={24} className="w-[24px] " />
           </span>
           <span className="" >
-            <h3 className="text-[20px] font-bold " >Department</h3>
-            <p className="text-[13px] " >View the list of departments for the HR Mini</p>
+            <h3 className="text-[20px] font-bold " >Attendance</h3>
+            <p className="text-[13px] " >Check all your attendance on the HR Mini</p>
           </span>
         </span>
-        <Button variant="outline" className="text-[13px]" ><Image src="/icons/arrow-semi-circle.svg" alt="Export icon" width={16} height={16} /> Export CSV</Button>
       </div>
-      <DataTable columns={columns} data={departmentData} />
+      <DataTable columns={columns} data={attendanceData} />
     </section>
   )}

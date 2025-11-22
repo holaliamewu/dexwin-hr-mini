@@ -17,7 +17,7 @@ export const columns: ColumnDef<Department>[] = [
   },
   {
     accessorKey: "name",
-    header: "Department Name",
+    header: "Role Name",
   },
   {
     accessorKey: "description",

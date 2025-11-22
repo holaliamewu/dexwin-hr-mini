@@ -2,30 +2,20 @@
 
 import { ColumnDef } from "@tanstack/react-table"
 
-export type Department = {
+export type Attendance = {
     id: number;
-    name: string;
-    dateCreated: string;
-    description: string;
-    status: "Active" | "Inactive";
+    timeStamp: string;
+    clockInOut: string;
   }
 
-export const columns: ColumnDef<Department>[] = [
+export const columns: ColumnDef<Attendance>[] = [
   {
-    accessorKey: "dateCreated",
-    header: "Date Created",
+    accessorKey: "timeStamp",
+    header: "Timestamps",
   },
   {
-    accessorKey: "name",
-    header: "Department Name",
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
+    accessorKey: "clockInOut",
+    header: "Clock-In & Out",
   },
   {
     accessorKey: "actions",
