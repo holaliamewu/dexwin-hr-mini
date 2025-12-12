@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { columns, Department } from "./columns";
 import { DataTable } from "./data-table";
+import { Funnel, Plus, RefreshCcw, Search } from "lucide-react";
 
 
 export default function Departments() {
@@ -78,11 +79,25 @@ export default function Departments() {
       status: "Active",
     },
   ]
+
+    function DepartmentEmptyState() {
+      return (
+        <div className="flex flex-col items-center justify-center w-full h-[calc(100vh-300px)] gap-4 mt-16 " >
+          <Image src="/icons/layers.svg" alt="icon" width={24} height={24} className="w-[36px] bg-[#02AA69]/20 p-2 rounded-[4px] " />
+          <h3 className="text-[18px] font-semibold " >No Departments yet</h3>
+          <p className="text-center text-sm text-[#02AA69] text-stone-500 max-w-md " >Looks like there are no departments created on HR mini. 
+            Click the “Refresh” button to reload the page  or  click the “Create Department” button to create a department.</p>
+          <span className="flex gap-4" >
+            <Button className="min-w-[175px] py-[7.5px] mt-4 px-6 py-2.5 text-sm bg-[#02AA69] " ><Plus className="flex items-center justify-center border border-white rounded-full p-[2px] " /> Create Department</Button>
+            <Button className="min-w-[175px] py-[7.5px] mt-4 px-6 py-2.5 text-sm " ><RefreshCcw /> Refresh</Button>
+          </span>
+        </div>
+      )}
     
     return(
     <section className="mt-8" >
-      <div className="flex items-center justify-between gap-3" >
-        <span className="flex items-center gap-3" >
+      <div className="flex items-center justify-between mb-[46px]" >
+        <span className="flex items-center gap-3 " >
           <span className="flex items-center justify-center w-10 h-10 aspect-square border border-stone-300 rounded-full " >
             <Image src="/icons/layers.svg" alt="icon" width={24} height={24} className="w-[24px] " />
           </span>
@@ -93,6 +108,20 @@ export default function Departments() {
         </span>
         <Button variant="outline" className="text-[13px]" ><Image src="/icons/arrow-semi-circle.svg" alt="Export icon" width={16} height={16} /> Export CSV</Button>
       </div>
-      <DataTable columns={columns} data={departmentData} />
+      {departmentData.length < 1 ? 
+        <DepartmentEmptyState /> : 
+        <div className="flex flex-col mt-[46px] " >
+          <div className="flex items-center justify-between " >
+            <span className="flex items-center gap-4 " >
+              <span className="flex items-center border min-w-[450px] gap-1 pl-2 border border-stone-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#02AA69] focus:border-transparent" >
+                <Search size={18} className="text-stone-400"/>
+                <input type="text" placeholder="Type or Search" className="w-full max-w-sm h-10 text-sm outline-none" />
+              </span>
+              <Button variant="outline" className="" ><Funnel /> Filter by</Button>
+            </span>
+            <Button className="min-w-[175px] py-[7.5px] px-6 py-2.5 text-sm bg-[#02AA69] " ><Plus className="flex items-center justify-center border border-white rounded-full p-[2px] " /> Create Department</Button>
+          </div>
+          <DataTable columns={columns} data={departmentData} />
+        </div>}
     </section>
   )}
