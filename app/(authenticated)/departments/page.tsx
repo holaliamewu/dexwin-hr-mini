@@ -1,8 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { columns, Department } from "./columns";
 import { DataTable } from "./data-table";
 import { Funnel, Plus, RefreshCcw, Search } from "lucide-react";
+import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover";
 
 
 export default function Departments() {
@@ -80,6 +84,8 @@ export default function Departments() {
     },
   ]
 
+  const [openNewDepartmentModal, setOpenNewDepartmentModal] = useState(false);
+
     function DepartmentEmptyState() {
       return (
         <div className="flex flex-col items-center justify-center w-full h-[calc(100vh-300px)] gap-4 mt-16 " >
@@ -117,9 +123,23 @@ export default function Departments() {
                 <Search size={18} className="text-stone-400"/>
                 <input type="text" placeholder="Type or Search" className="w-full max-w-sm h-10 text-sm outline-none" />
               </span>
-              <Button variant="outline" className="" ><Funnel /> Filter by</Button>
+              <Popover >
+                <PopoverTrigger >
+                <Button variant="outline" className="" ><Funnel /> Filter by</Button>
+                </PopoverTrigger>
+                <PopoverContent className="outline-none shadow-xl rounded-lg z-1000 " >
+                    <div className="flex flex-col w-[240px] bg-white border border-stone-100 rounded-lg " >
+                        <h6 className="px-3 py-2 text-stone-500 text-[12px] " >Filter by</h6>
+                        <div className="flex flex-col items-left p-[1px] " >
+                            <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Name</button>
+                            <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Status</button>
+                            <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 rounded-b-lg " >Date created</button>
+                        </div>
+                    </div>
+                </PopoverContent>
+            </Popover>
             </span>
-            <Button className="min-w-[175px] py-[7.5px] px-6 py-2.5 text-sm bg-[#02AA69] " ><Plus className="flex items-center justify-center border border-white rounded-full p-[2px] " /> Create Department</Button>
+            <Button variant="default" className="min-w-[175px] py-[7.5px] px-6 py-2.5 text-sm bg-[#02AA69] " ><Plus className="flex items-center justify-center border border-white rounded-full p-[2px] " /> Create Department</Button>
           </div>
           <DataTable columns={columns} data={departmentData} />
         </div>}

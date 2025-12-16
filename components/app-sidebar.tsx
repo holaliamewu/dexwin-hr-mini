@@ -77,7 +77,7 @@ export function AppSidebar() {
                 <Image src="/images/dexwin-logo.svg" alt="Dexwin Logo" width={84} height={18} />
                 <h6 className="text-[12px] " >Enterprise</h6>
             </span>
-            <Image src="/icons/bell.svg" alt="Notification icon" width={24} height={24} />
+            <Image src="/icons/sidebar-left.svg" alt="Close menu icon" width={24} height={24} className="-mr-6" />
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -94,9 +94,9 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter >
-        <div className="flex items-center justify-between gap-4" >
+        <div className="flex items-center justify-between gap-4 border-t pt-2" >
             <span className="" >
-                <Image src="/images/avatar.svg" alt="user's avatar" width={80} height={80} />
+                <Image src="/images/avatar.png" alt="user's avatar" width={80} height={80} />
             </span>
             <span className="flex flex-col w-full" >
                 <h3 className="text-sm font-medium" >Kofi Ampraku</h3>
@@ -104,18 +104,18 @@ export function AppSidebar() {
             </span>
             <Popover >
                 <PopoverTrigger >
-                    <ChevronsUpDown />
+                    <ChevronsUpDown size={18} />
                 </PopoverTrigger>
-                <PopoverContent className="" >
-                    <div className="flex flex-col w-[240px] bg-white border border-stone-100 rounded-lg " >
+                <PopoverContent className="outline-none shadow-xl bg-red-200 rounded-lg " >
+                    <div className="flex flex-col w-[240px] bg-white border border-stone-100 bg-black rounded-lg " >
                         <h6 className="px-3 py-2 text-stone-500 text-[12px] " >My account</h6>
-                        <div className="flex flex-col " >
-                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 hover:bg-stone-100 " >Profile</Link>
-                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 hover:bg-stone-100  border-b" >Settings</Link>
-                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 hover:bg-stone-100 " >Github</Link>
-                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 hover:bg-stone-100  " >Support</Link>
-                            <Link href="/setting/profile" className="text-sm text-stone-500 cursor-pointer px-4 py-2 hover:bg-stone-100  border-b" >API</Link>
-                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 text-red-400 hover:bg-red-100 " >Log out</Link>
+                        <div className="flex flex-col bg-transparent p-[1px] " >
+                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Profile</Link>
+                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10  border-b" >Settings</Link>
+                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Github</Link>
+                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10  " >Support</Link>
+                            <Link href="/setting/profile" className="text-sm text-stone-500 cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10  border-b" >API</Link>
+                            <Link href="/setting/profile" className="text-sm text-black cursor-pointer px-4 py-2 text-red-400 hover:bg-red-100 rounded-b-lg " >Log out</Link>
                         </div>
                     </div>
                 </PopoverContent>

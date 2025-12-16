@@ -31,7 +31,10 @@ export default function RootLayout({
             <main className="w-full ml-8 px-[2%] py-8">
               <div className="flex items-center justify-between w-full " >
                 <span className="text-[18px] font-bold" >Good morning Kofi</span>
-                <Link href="/settings" className="flex items-center justify-center w-10 h-10 border border-stone-300 rounded-full" ><Settings width={24} strokeWidth={1.5} /></Link>
+                <span className="flex items-center gap-2" >
+                  <Link href="/notifications" className="flex items-center justify-center w-10 h-10 border border-stone-100 rounded-full" ><Image src="/icons/bell.svg" alt="Bell icon" width={24} height={24} /></Link>
+                  <Link href="/notifications" className="flex items-center justify-center w-10 h-10 border border-stone-100 rounded-full" ><Image src="/icons/settings.svg" alt="Settings icon" width={24} height={24} /></Link>
+                </span>
               </div>
               {children}
             </main>
