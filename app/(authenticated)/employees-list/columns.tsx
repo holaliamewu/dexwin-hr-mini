@@ -1,8 +1,9 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
+import clsx from "clsx";
 
-export type EmployeeList = {
+export type TEmployeeList = {
     id: number;
     name: string;
     email: string;
@@ -11,7 +12,7 @@ export type EmployeeList = {
     status: "Active" | "Inactive";
   }
 
-export const columns: ColumnDef<EmployeeList>[] = [
+export const columns: ColumnDef<TEmployeeList>[] = [
   {
     accessorKey: "name",
     header: "Name",
@@ -31,5 +32,13 @@ export const columns: ColumnDef<EmployeeList>[] = [
   {
     accessorKey: "status",
     header: "Status",
+    cell: ({ row }) => (
+      <div className={clsx(
+        "flex items-center w-fit gap-2 px-3 py-2 rounded-lg text-sm font-medium border ",
+        row.original.status === "Active" ? "text-stone-800 font-semibold border-[#02AA69]/10" : "bg-gray-50 text-gray-300 semibold border-gray-100 "
+      )}>
+        <span className={clsx("flex w-2.5 h-2.5 rounded-full ", row.original.status === "Active" ? "bg-[#12B76A] " : "bg-gray-300")} /> {row.original.status}
+      </div>
+    ),
   },
 ]

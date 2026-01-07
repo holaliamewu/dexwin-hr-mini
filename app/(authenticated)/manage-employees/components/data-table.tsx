@@ -1,10 +1,11 @@
 "use client"
 
-import React from "react"
+import React from "react";
 import {
     ColumnDef,
     flexRender,
     getCoreRowModel,
+    getPaginationRowModel,
     useReactTable,
 } from "@tanstack/react-table"
 
@@ -16,6 +17,7 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
+import { Button } from "@/components/ui/button"
 
 interface DataTableProps<TData extends Record<string, unknown>, TValue> {
     columns: ColumnDef<TData, TValue>[]
@@ -30,10 +32,11 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
     })
 
     return (
-        <div className="overflow-hidden rounded-md border mt-8">
+        <div className="overflow-hidden rounded-md border mt-8 z-0">
             <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
@@ -52,9 +55,9 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
                 <TableBody >
                     {table.getRowModel().rows.length ? (
                         table.getRowModel().rows.map((row) => (
-                            <TableRow key={row.id} data-state={row.getIsSelected() ? "selected" : undefined}>
+                            <TableRow key={row.id} data-state={row.getIsSelected() ? "selected" : undefined} >
                                 {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id} className="text-[14px] font-[400] px-4 py-2.5" >
+                                    <TableCell key={cell.id} className="text-[14px] font-[400] px-4 py-4 " >
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </TableCell>
                                 ))}
@@ -69,6 +72,13 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
                     )}
                 </TableBody>
             </Table>
+            <div className="flex items-center justify-between w-full border-t p-4 " >
+                <p className="text-sm text-[#71717a] " >0 of 6 row(s) selected.</p>
+                <span className="" >
+                    <Button variant="outline" size="sm" className="mr-2" >Previous</Button>
+                    <Button variant="outline" size="sm" >Next</Button>
+                </span>
+            </div>
         </div>
     )
 }
