@@ -151,7 +151,7 @@ export default function Departments() {
             <p className="text-[13px] " >View the list of departments for the HR Mini</p>
           </span>
         </span>
-        <Button variant="outline" className="text-[13px]" ><Image src="/icons/arrow-semi-circle.svg" alt="Export icon" width={16} height={16} /> Export CSV</Button>
+        <Button variant="outline" className="text-[13px] border-black" ><Image src="/icons/arrow-semi-circle.svg" alt="Export icon" width={16} height={16} /> Export CSV</Button>
       </div>
       {departmentData.length < 1 ? 
         <DepartmentEmptyState /> : 
@@ -170,7 +170,7 @@ export default function Departments() {
                     <div className="flex flex-col w-full bg-white rounded-lg bg-teal-500 " >
                         <h6 className="px-3 py-2 text-stone-500 text-[12px] " >Filter by</h6>
                         <div className="flex flex-col items-left p-[1px] " >
-                            <DropdownMenuItem className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Name</DropdownMenuItem>
+                            <DropdownMenuItem className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Department Name</DropdownMenuItem>
                             <DropdownMenuSub >
                               <DropdownMenuSubTrigger >
                                 <button className="w-full text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Status</button>

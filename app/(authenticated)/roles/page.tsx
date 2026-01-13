@@ -10,6 +10,7 @@ import { columns, TRole } from "./components/columns";
 import CreateRoleModal from "./components/create-role-modal";
 import EditRoleModal from "./components/edit-role-modal";
 import DeleteRoleModal from "./components/delete-role-modal";
+import { Calendar } from "@/components/ui/calendar";
 
 
 export type TModalProps = {
@@ -96,6 +97,7 @@ export default function RolePage() {
   const [openCreateRoleModal, setOpenCreateRoleModal] = useState(false);
   const [openEditRoleModal, setOpenEditRoleModal] = useState(false);
   const [openDeleteRoleModal, setOpenDeleteRoleModal] = useState(false);
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   const onCloseCreateRoleModal = () => {
     setOpenCreateRoleModal(false);
@@ -146,7 +148,7 @@ export default function RolePage() {
             <p className="text-[13px] " >Manage role titles for the HR Mini</p>
           </span>
         </span>
-        <Button variant="outline" className="text-[13px]" ><Image src="/icons/arrow-semi-circle.svg" alt="Export icon" width={16} height={16} /> Export CSV</Button>
+        <Button variant="outline" className="text-[13px] border-black" ><Image src="/icons/arrow-semi-circle.svg" alt="Export icon" width={16} height={16} /> Export CSV</Button>
       </div>
       {roleData.length < 1 ? 
         <RoleEmptyState /> : 
@@ -165,19 +167,34 @@ export default function RolePage() {
                     <div className="flex flex-col w-full bg-white rounded-lg bg-teal-500 " >
                         <h6 className="px-3 py-2 text-stone-500 text-[12px] " >Filter by</h6>
                         <div className="flex flex-col items-left p-[1px] " >
-                            <DropdownMenuItem className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Department</DropdownMenuItem>
-                            <DropdownMenuItem className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Role</DropdownMenuItem>
-                              <DropdownMenuSub >
-                                <DropdownMenuSubTrigger >
-                                  <button className="w-full text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Status</button>
-                                </DropdownMenuSubTrigger>
-                                <DropdownMenuPortal >
-                                  <DropdownMenuSubContent className="flex flex-col w-[238px] ">
-                                    <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Active</button>
-                                    <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 rounded-b-lg " >Inactive</button>
-                                  </DropdownMenuSubContent>
-                                </DropdownMenuPortal>
-                            </DropdownMenuSub>
+                            <DropdownMenuItem className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Role Name</DropdownMenuItem>
+                            <DropdownMenuSub >
+                              <DropdownMenuSubTrigger >
+                                <button className="w-full text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Status</button>
+                              </DropdownMenuSubTrigger>
+                              <DropdownMenuPortal >
+                                <DropdownMenuSubContent className="flex flex-col w-[238px] ">
+                                  <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Active</button>
+                                  <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 rounded-b-lg " >Inactive</button>
+                                </DropdownMenuSubContent>
+                              </DropdownMenuPortal>
+                          </DropdownMenuSub>
+                          <DropdownMenuSub >
+                              <DropdownMenuSubTrigger >
+                                <button className="w-full text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Date created</button>
+                              </DropdownMenuSubTrigger>
+                              <DropdownMenuPortal >
+                                <DropdownMenuSubContent className="flex flex-col w-fit ">
+                                  <Calendar
+                                    mode="single"
+                                    selected={date}
+                                    onSelect={setDate}
+                                    className="rounded-md"
+                                    captionLayout="dropdown"
+                                  />
+                                </DropdownMenuSubContent>
+                              </DropdownMenuPortal>
+                          </DropdownMenuSub>
                         </div>
                     </div>
                 </DropdownMenuContent>

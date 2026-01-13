@@ -10,6 +10,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@radix-ui/react-popover
 import AddEmployeeModal from "./components/add-employee-modal";
 import EditEmployeeModal from "./components/edit-employee-modal";
 import DeleteEmployeeModal from "./components/delete-employee-modal";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuPortal, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Calendar } from "@/components/ui/calendar";
 
 
 export type TModalProps = {
@@ -106,6 +108,7 @@ export default function ManageEmployeesPage() {
   const [openAddEmployeesModal, setOpenAddEmployeesModal] = useState(false);
   const [openEditEmployeesModal, setOpenEditEmployeesModal] = useState(false);
   const [openDeleteEmployeesModal, setOpenDeleteEmployeesModal] = useState(false);
+  const [date, setDate] = useState<Date | undefined>(new Date());
 
   const onCloseAddEmployeesModal = () => {
     setOpenAddEmployeesModal(false);
@@ -123,11 +126,10 @@ export default function ManageEmployeesPage() {
       return (
         <div className="flex flex-col items-center justify-center w-full h-[calc(100vh-300px)] gap-4 mt-16 " >
           <Image src="/icons/layers.svg" alt="icon" width={24} height={24} className="w-[36px] bg-[#02AA69]/20 p-2 rounded-[4px] " />
-          <h3 className="text-[18px] font-semibold " >No Departments yet</h3>
-          <p className="text-center text-sm text-[#02AA69] text-stone-500 max-w-md " >Looks like there are no departments created on HR mini. 
-            Click the “Refresh” button to reload the page  or  click the “Create Department” button to create a department.</p>
+          <h3 className="text-[18px] font-semibold " >No Employees yet</h3>
+          <p className="text-center text-sm text-[#02AA69] text-stone-500 max-w-md " >Looks like there are were no employees here on HR mini. Click the “Refresh” button to reload the page  or  click the “Add Employee” button to create a role</p>
           <span className="flex gap-4" >
-            <Button className="min-w-[175px] py-[7.5px] mt-4 px-6 py-2.5 text-sm bg-[#02AA69] " ><Plus className="flex items-center justify-center border border-white rounded-full p-[2px] " /> Create Department</Button>
+            <Button className="min-w-[175px] py-[7.5px] mt-4 px-6 py-2.5 text-sm bg-[#02AA69] " ><Plus className="flex items-center justify-center border border-white rounded-full p-[2px] " /> Add Employee</Button>
             <Button className="min-w-[175px] py-[7.5px] mt-4 px-6 py-2.5 text-sm " ><RefreshCcw /> Refresh</Button>
           </span>
         </div>
@@ -168,24 +170,50 @@ export default function ManageEmployeesPage() {
                 <Search size={18} className="text-stone-400"/>
                 <input type="text" placeholder="Type or Search" className="w-full max-w-sm h-10 text-sm outline-none" />
               </span>
-              <Popover >
-                <PopoverTrigger >
-                <Button variant="outline" className="" ><Funnel /> Filter by</Button>
-                </PopoverTrigger>
-                <PopoverContent className="outline-none shadow-xl rounded-lg z-1000 " >
-                    <div className="flex flex-col w-[240px] bg-white border border-stone-100 rounded-lg " >
+              <DropdownMenu >
+                <DropdownMenuTrigger >
+                <Button variant="outline" className="bg-red-" ><Funnel /> Filter by</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="outline-none shadow-xl rounded-lg z-1000 w-[238px] " >
+                    <div className="flex flex-col w-full bg-white rounded-lg bg-teal-500 " >
                         <h6 className="px-3 py-2 text-stone-500 text-[12px] " >Filter by</h6>
                         <div className="flex flex-col items-left p-[1px] " >
-                            <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Name</button>
-                            <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Status</button>
-                            <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Date Created</button>
-                            <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 rounded-b-lg " >Role</button>
+                            <DropdownMenuItem className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Name</DropdownMenuItem>
+                            <DropdownMenuSub >
+                              <DropdownMenuSubTrigger >
+                                <button className="w-full text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Status</button>
+                              </DropdownMenuSubTrigger>
+                              <DropdownMenuPortal >
+                                <DropdownMenuSubContent className="flex flex-col w-[238px] ">
+                                  <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Active</button>
+                                  <button className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 rounded-b-lg " >Inactive</button>
+                                </DropdownMenuSubContent>
+                              </DropdownMenuPortal>
+                          </DropdownMenuSub>
+                          <DropdownMenuSub >
+                            <DropdownMenuSubTrigger >
+                              <button className="w-full text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Date created</button>
+                            </DropdownMenuSubTrigger>
+                            <DropdownMenuPortal >
+                              <DropdownMenuSubContent className="flex flex-col w-fit ">
+                                <Calendar
+                                  mode="single"
+                                  selected={date}
+                                  onSelect={setDate}
+                                  className="rounded-md"
+                                  captionLayout="dropdown"
+                                />
+                              </DropdownMenuSubContent>
+                            </DropdownMenuPortal>
+                          </DropdownMenuSub>
+                          <DropdownMenuItem className="text-sm text-left text-black cursor-pointer px-4 py-2 hover:bg-[#02aa69]/10 " >Role</DropdownMenuItem>
+
                         </div>
                     </div>
-                </PopoverContent>
-            </Popover>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </span>
-            <Button variant="default" onClick={() => setOpenAddEmployeesModal(true)} className="min-w-[175px] py-[7.5px] px-6 py-2.5 text-sm bg-[#02AA69] " ><Plus className="flex items-center justify-center border border-white rounded-full p-[2px] " /> Add Employee</Button>
+            <Button variant="default" onClick={() => setOpenAddEmployeesModal(true)} className="min-w-[175px] py-[7.5px] px-6 py-2.5 text-sm bg-[#02AA69] " ><Plus className="flex items-center justify-center " /> Add Employee</Button>
           </div>
           <DataTable columns={columns} data={employeesData} />
           {/* <NoEmployeesFound /> */}
