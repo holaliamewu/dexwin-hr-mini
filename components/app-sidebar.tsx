@@ -30,14 +30,14 @@ export function AppSidebar() {
             link: "/roles" 
         },
         { 
-            title: "Employees list", 
-            icon: "/icons/user-circle.svg",
-            link: "/employees-list" 
-        },
-        { 
             title: "Manage Employees", 
             icon: "/icons/user-group.svg",
             link: "/manage-employees" 
+        },
+        { 
+            title: "Employees list", 
+            icon: "/icons/user-circle.svg",
+            link: "/employees-list" 
         },
         { 
             title: "Employee Profiles", 

@@ -1,0 +1,166 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  EMPLOYEE
+}
+
+enum LeaveStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  DENIED
+}
+
+enum LeaveType {
+  ANNUAL
+  SICK
+  UNPAID
+  SPECIAL
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  role      UserRole  @default(EMPLOYEE)
+  employee  Employee?
+  createdAt DateTime  @default(now())
+  password  String
+}
+
+model Department {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+
+  leadId    Int?
+  lead      Employee?  @relation("DepartmentLead", fields: [leadId], references: [id])
+
+  employees Employee[]
+
+  createdAt DateTime   @default(now())
+}
+
+model RoleTitle {
+  id        Int     @id @default(autoincrement())
+  name      String   @unique
+  level     Int
+  minSalary Int
+  maxSalary Int
+
+  employees Employee[]
+}
+
+model Employee {
+  id           Int      @id @default(autoincrement())
+
+  userId       Int      @unique
+  user         User     @relation(fields: [userId], references: [id])
+
+  departmentId Int?
+  department   Department? @relation(fields: [departmentId], references: [id])
+
+  roleTitleId  Int?
+  roleTitle    RoleTitle?   @relation(fields: [roleTitleId], references: [id])
+
+  startDate    DateTime
+  salary       Int          // gross monthly (demo)
+
+  // Self relation (manager ↔ reports)
+  managerId    Int?
+  manager      Employee?    @relation("ManagerReports", fields: [managerId], references: [id])
+  reports      Employee[]   @relation("ManagerReports")
+
+  // Relation to Department as lead
+  leadOf       Department[] @relation("DepartmentLead")
+
+  // Relations
+  leaves       LeaveRequest[]
+  attendance   Attendance[]
+  reviews      PerformanceReview[]
+  approvals    LeaveRequest[]      @relation("LeaveApprover")
+  reviewsGiven PerformanceReview[] @relation("Reviewer")
+
+  createdAt    DateTime @default(now())
+
+  @@index([departmentId])
+  @@index([managerId])
+}
+
+model LeaveRequest {
+  id           Int      @id @default(autoincrement())
+
+  employeeId  Int
+  employee    Employee    @relation(fields: [employeeId], references: [id])
+
+  type        LeaveType
+  status      LeaveStatus @default(DRAFT)
+
+  startDate   DateTime
+  endDate     DateTime
+  reason      String?
+
+  approverId  Int?
+  approver    Employee?   @relation("LeaveApprover", fields: [approverId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([employeeId])
+  @@index([approverId])
+}
+
+model Attendance {
+  id          Int      @id @default(autoincrement())
+
+  employeeId  Int
+  employee    Employee @relation(fields: [employeeId], references: [id])
+
+  clockIn     DateTime
+  clockOut    DateTime?
+  notes       String?
+
+  createdAt   DateTime @default(now())
+
+  @@index([employeeId])
+}
+
+model PerformanceReview {
+  id          Int      @id @default(autoincrement())
+
+  employeeId  Int
+  employee    Employee @relation(fields: [employeeId], references: [id])
+
+  periodStart DateTime
+  periodEnd   DateTime
+  rating      Int      // 1–5
+
+  strengths   String?
+  areas       String?
+
+  reviewerId  Int
+  reviewer    Employee @relation("Reviewer", fields: [reviewerId], references: [id])
+
+  createdAt   DateTime @default(now())
+
+  @@index([employeeId])
+  @@index([reviewerId])
+}
+
+
+// await prisma.user.findMany({
+//   where: {
+//     email: {
+//       contains: "alice@prisma.io",
+//     },
+//   },
+//   cacheStrategy: { ttl: 60 },
+// });

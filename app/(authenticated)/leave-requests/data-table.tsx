@@ -40,37 +40,37 @@ export function DataTable<TData extends Record<string, unknown>, TValue>({
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id}>
-                                {headerGroup.headers.map((header) => (
-                                    <TableHead key={header.id} className="text-[13px] font-[400] text-stone-400 px-4">
-                                        {header.isPlaceholder
-                                            ? null
-                                            : flexRender(header.column.columnDef.header, header.getContext())}
-                                    </TableHead>
+                            {headerGroup.headers.map((header) => (
+                                <TableHead key={header.id} className="text-[13px] font-[400] text-stone-400 px-4">
+                                    {header.isPlaceholder
+                                        ? null
+                                        : flexRender(header.column.columnDef.header, header.getContext())}
+                                </TableHead>
+                            ))}
+                        </TableRow>
+                    ))}
+                </TableHeader>
+
+                <TableBody >
+                    {table.getRowModel().rows.length ? (
+                        table.getRowModel().rows.map((row) => (
+                            <TableRow key={row.id} data-state={row.getIsSelected() ? "selected" : undefined} >
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id} className="max-w-[300px] whitespace-normal break-words text-[14px] font-[400] px-4 py-4 text-wrap " >
+                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                    </TableCell>
                                 ))}
                             </TableRow>
-                        ))}
-                    </TableHeader>
-
-                    <TableBody >
-                        {table.getRowModel().rows.length ? (
-                            table.getRowModel().rows.map((row) => (
-                                <TableRow key={row.id} data-state={row.getIsSelected() ? "selected" : undefined}>
-                                    {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id} className="text-[14px] font-[400] px-4 py-2.5 " >
-                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                        </TableCell>
-                                    ))}
-                                </TableRow>
-                            ))
-                        ) : (
-                            <TableRow>
-                                <TableCell colSpan={columns.length} className="h-24 text-center">
-                                    No results.
-                                </TableCell>
-                            </TableRow>
-                        )}
-                    </TableBody>
-                </Table>
+                        ))
+                    ) : (
+                        <TableRow>  
+                            <TableCell colSpan={columns.length} className="h-24 text-center">
+                                No results.
+                            </TableCell>
+                        </TableRow>
+                    )}
+                </TableBody>
+            </Table>
             </div>
         </section>
     )

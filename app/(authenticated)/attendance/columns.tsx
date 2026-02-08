@@ -21,7 +21,17 @@ export const columns: ColumnDef<Attendance>[] = [
     header: "Clock-In & Out",
     cell: ({ row }) => {
       const { clockIn, clockOut } = row.original;
-      return <span className="flex items-center w-full ">{clockIn}{" "} <Image src="/icons/dot-dash.svg" alt="Dot dash icon" width={24} height={16} /><span className="text-xs mx-2" > 8h:25m </span> <Image src="/icons/dot-dash.svg" alt="Dot dash icon" width={16} height={16} className="rotate-180 w-6" /> {clockOut}</span>;
+      return (
+        <div className="flex items-center w-full ">
+          <span className="" >{clockIn}</span> 
+          <span className="flex items-center px-4" >
+            <Image src="/icons/dot-dash.svg" alt="Dot dash icon" width={24} height={24} className="" />
+            <span className="text-xs mx-2" > 8h:25m </span> 
+            <Image src="/icons/dot-dash.svg" alt="Dot dash icon" width={24} height={24} className="rotate-180" /> 
+          </span>
+          <span className="" >{clockOut}</span>
+        </div>
+      );
     },
   },
   {
